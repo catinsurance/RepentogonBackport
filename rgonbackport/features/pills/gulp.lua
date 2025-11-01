@@ -20,26 +20,7 @@ function mod:Gulp(pillColor, player, useFlags)
         end
     end
 
-
-    local muteAnnouncer = Options.AnnouncerVoiceMode == AnnouncerVoiceMode.OFF
-        or (useFlags & UseFlag.USE_NOANNOUNCER > 0)
-    local announcerSfx = isHorse and pillConfig.AnnouncerVoiceSuper or pillConfig.AnnouncerVoice
-    local announcerDelay = pillConfig.AnnouncerDelay
-    local announcerFrameDelay = Options.AnnouncerVoiceMode == AnnouncerVoiceMode.RANDOM and 900 or 2
-
-    if not muteAnnouncer then
-        player:PlayDelayedSFX(announcerSfx, announcerDelay, announcerFrameDelay)
-    end
-
-    local pillName = Isaac.GetLocalizedString("PocketItems", pillConfig.Name, Options.Language)
-    local ignoreStreak = useFlags & UseFlag.USE_NOHUD > 0
-
-    if not ignoreStreak then
-        game:GetHUD():ShowItemText(pillName)
-    end
-
-    game:SetBloom(30, 1)
-    player:AnimatePill(pillColor, "UseItem")
+    mod:PerformPillUse(pillConfig, pillColor, player, useFlags, isHorse)
 end
 
 function mod:GulpCancel(_, pillColor, player, useFlags)

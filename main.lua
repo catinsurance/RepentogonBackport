@@ -19,7 +19,8 @@ local scripts = {
             "stat_changes",
         },
         pills = {
-            "gulp"
+            "addicted",
+            "gulp",
         },
     }
 }

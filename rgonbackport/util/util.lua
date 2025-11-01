@@ -2,13 +2,13 @@ local mod = RgonBackport
 
 local scheduled = {}
 function mod:Schedule(func, frames)
-    scheduled[#scheduled+1] = {
+    scheduled[#scheduled + 1] = {
         Count = mod.Game:GetFrameCount() + frames,
         Func = func
     }
 end
 
-mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function ()
+mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function()
     local current = mod.Game:GetFrameCount()
     for i = #scheduled, 1, -1 do
         local v = scheduled[i]
@@ -18,3 +18,32 @@ mod:AddCallback(ModCallbacks.MC_POST_UPDATE, function ()
         end
     end
 end)
+
+---@param config ItemConfigPillEffect
+---@param pillColor PillColor
+---@param player EntityPlayer
+---@param useFlags UseFlag
+---@param isHorse? boolean
+function mod:PerformPillUse(config, pillColor, player, useFlags, isHorse)
+    isHorse = isHorse or pillColor & PillColor.PILL_GIANT_FLAG > 0
+
+    local muteAnnouncer = Options.AnnouncerVoiceMode == AnnouncerVoiceMode.OFF
+        or (useFlags & UseFlag.USE_NOANNOUNCER > 0)
+    local announcerSfx = isHorse and config.AnnouncerVoiceSuper or config.AnnouncerVoice
+    local announcerDelay = config.AnnouncerDelay
+    local announcerFrameDelay = Options.AnnouncerVoiceMode == AnnouncerVoiceMode.RANDOM and 900 or 2
+
+    if not muteAnnouncer then
+        player:PlayDelayedSFX(announcerSfx, announcerDelay, announcerFrameDelay)
+    end
+
+    local pillName = Isaac.GetLocalizedString("PocketItems", config.Name, Options.Language)
+    local ignoreStreak = useFlags & UseFlag.USE_NOHUD > 0
+
+    if not ignoreStreak then
+        mod.Game:GetHUD():ShowItemText(pillName)
+    end
+
+    mod.Game:SetBloom(30, 1)
+    player:AnimatePill(pillColor, "UseItem")
+end
