@@ -16,6 +16,7 @@ local scripts = {
             "seraphim",
             "revelation",
             "plan_c",
+            "pageant_boy",
             "stat_changes",
         },
         pills = {
