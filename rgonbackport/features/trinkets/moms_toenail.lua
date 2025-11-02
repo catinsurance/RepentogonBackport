@@ -5,7 +5,7 @@ local game = mod.Game
 ---@param trinketID TrinketType
 function mod:ToenailRemove(player, trinketID)
     if (trinketID & TrinketType.TRINKET_ID_MASK) == TrinketType.TRINKET_MOMS_TOENAIL then
-        local plrData = player:GetData() --replace with better save handler
+        local plrData = mod:GetData(player)
         plrData.RgonBackPortHasMomsBox = player:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_BOX)
         plrData.RgonBackPortPlayerWasHoldingDropAction = player:GetLastActionTriggers() &
             ActionTriggers.ACTIONTRIGGER_ITEMSDROPPED > 0
@@ -16,7 +16,8 @@ end
 function mod:ToenailDrop(pick)
     local room = game:GetRoom()
 
-    if not room:IsClear() then
+    -- Only functions in rooms with combat
+    if room:IsClear() then
         return
     end
 
@@ -24,7 +25,7 @@ function mod:ToenailDrop(pick)
         mod:Schedule(function()
             local player = pick.SpawnerEntity and pick.SpawnerEntity:ToPlayer()
             if player then
-                local plrData = player:GetData()
+                local plrData = mod:GetData(player)
                 local trinketModif = 0
                 if plrData.RgonBackPortHasMomsBox then
                     trinketModif = trinketModif + 1

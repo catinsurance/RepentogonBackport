@@ -9,7 +9,7 @@ RgonBackport.ItemConfig = Isaac.GetItemConfig()
 local scripts = {
     util = {
         "savedata",
-        "util"
+        "util",
     },
     features = {
         items = {
@@ -43,6 +43,15 @@ local function loadScripts(t, path)
         end
     end
 end
+
+local dataHolder = require("rgonbackport.util.getdata")
+RgonBackport.GetData = dataHolder.GetData
+
+function mod:ClearDataOnRemoveOrDeath(entity)
+    local ptrHash = GetPtrHash(entity)
+    dataHolder.Data[ptrHash] = nil
+end
+mod:AddCallback(ModCallbacks.MC_POST_ENTITY_REMOVE, mod.ClearDataOnRemoveOrDeath)
 
 loadScripts(scripts)
 
