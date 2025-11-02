@@ -53,6 +53,11 @@ function mod:ClearDataOnRemoveOrDeath(entity)
 end
 mod:AddCallback(ModCallbacks.MC_POST_ENTITY_REMOVE, mod.ClearDataOnRemoveOrDeath)
 
+function mod:ClearDataOnExit()
+    dataHolder.Data = {}
+end
+mod:AddCallback(ModCallbacks.MC_PRE_GAME_EXIT, mod.ClearDataOnExit)
+
 loadScripts(scripts)
 
 if loadImmediately then
