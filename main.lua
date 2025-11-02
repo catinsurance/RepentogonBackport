@@ -24,6 +24,9 @@ local scripts = {
             "gulp",
             "percs",
         },
+        trinkets = {
+            "moms_toenail"
+        }
     }
 }
 
