@@ -1,4 +1,5 @@
 local loadImmediately = RgonBackport and RgonBackport.LoadDataImmediately
+---@class ModReference
 RgonBackport = RegisterMod("Repentogon Backport", 1)
 local mod = RgonBackport
 
@@ -29,7 +30,7 @@ local scripts = {
         misc = {
             "dogma_bombs",
         },
-    }
+    },
 }
 
 local function loadScripts(t, path)
@@ -68,7 +69,7 @@ if REPENTOGON and REPENTANCE_PLUS then
     end
 else
     -- Render a warning in the first room that the mod is not active
-    mod:AddCallback(ModCallbacks.MC_POST_RENDER, function ()
+    mod:AddCallback(ModCallbacks.MC_POST_HUD_RENDER, function()
         local room = mod.Game:GetRoom()
         local level = mod.Game:GetLevel()
         if (

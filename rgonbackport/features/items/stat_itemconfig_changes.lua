@@ -1,42 +1,48 @@
 local mod = RgonBackport
 
 ---@class ItemStats
----@field Tears number
----@field FlatTears number
----@field ShotSpeed number
----@field Range number
----@field Luck number
----@field FireRate number
----@field Damage number
----@field FlatDamage number
+---@field Tears? number
+---@field FlatTears? number
+---@field ShotSpeed? number
+---@field Range? number
+---@field Luck? number
+---@field FireRate? number
+---@field Damage? number
+---@field FlatDamage? number
 ---@field ShouldStack boolean? Defaults to true, determines if stat changes should stack or not.
----@field ItemConfigChanges table Key is item config value to change. TagsAdd adds to tags instead of overwriting them.
+---@field ItemConfigChanges? table Key is item config value to change. TagsAdd adds to tags instead of overwriting them.
 
----@type table<TrinketType, ItemStats>
+---@type table<CollectibleType, ItemStats>
 mod.ItemStatChanges = {
     [CollectibleType.COLLECTIBLE_2SPOOKY] = {
         FlatTears = 0.5,
         ShotSpeed = 0.2,
         ItemConfigChanges = {
             TagsAdd = ItemConfig.TAG_TEARS_UP,
-        }
+        },
     },
     [CollectibleType.COLLECTIBLE_REVELATION] = {
         ItemConfigChanges = {
-            AddSoulHearts = 0
-        }
+            AddSoulHearts = 0,
+        },
     },
     [CollectibleType.COLLECTIBLE_SERAPHIM] = {
         ItemConfigChanges = {
             TagsAdd = ItemConfig.TAG_ANGEL,
-        }
-    }
+        },
+    },
 }
 
-
+---@type table<TrinketType, ItemStats>
 mod.TrinketStatChanges = {
     [TrinketType.TRINKET_LAZY_WORM] = {
         Damage = .5,
+
+    },
+    [TrinketType.TRINKET_BOBS_BLADDER] = {
+        ItemConfigChanges = {
+            TagsAdd = ItemConfig.TAG_BOB,
+        },
     },
 }
 
@@ -102,6 +108,7 @@ function mod:ChangeStats(player, cacheFlag)
                 if type(val) == "number" then
                     amount = shouldStack and val * count or val
                 end
+
                 if stat == "Damage" and cacheFlag == CacheFlag.CACHE_DAMAGE then
                     player.Damage = player.Damage + amount
                 elseif stat == "ShotSpeed" and cacheFlag == CacheFlag.CACHE_SHOTSPEED then
@@ -132,6 +139,7 @@ function mod:ChangeTearsDamage(player, cacheFlag, current)
                 if type(val) == "number" then
                     amount = shouldStack and val * count or val
                 end
+
                 if (
                     stat == "Tears"
                     or stat == "FlatTears"
