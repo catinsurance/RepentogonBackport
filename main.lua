@@ -60,11 +60,27 @@ end
 
 mod:AddCallback(ModCallbacks.MC_PRE_GAME_EXIT, mod.ClearDataOnExit)
 
-loadScripts(scripts)
+if REPENTOGON and REPENTANCE_PLUS then
+    loadScripts(scripts)
 
-if loadImmediately then
-    mod:GetSaveData()
-    mod:SetShouldRestore()
+    if loadImmediately then
+        mod:GetSaveData()
+        mod:SetShouldRestore()
+    end
+else
+    -- Render a warning in the first room that the mod is not active
+    mod:AddCallback(ModCallbacks.MC_POST_HUD_RENDER, function ()
+        local room = mod.Game:GetRoom()
+        local level = mod.Game:GetLevel()
+        if (
+            room:IsFirstVisit()
+            and level:GetCurrentRoomIndex() == level:GetStartingRoomIndex()
+            and level:GetStage() == LevelStage.STAGE1_1
+            and level:GetDimension() == Dimension.NORMAL
+        ) then
+            Isaac.RenderText("You need to be in Repentance+ to use the Repentogon backport!", 50, 50, 1, 1, 1, 1)
+        end
+    end)
 end
 
 --[[
