@@ -13,11 +13,9 @@ local scripts = {
     },
     features = {
         items = {
-            "seraphim",
-            "revelation",
             "plan_c",
             "pageant_boy",
-            "stat_changes",
+            "stat_itemconfig_changes",
         },
         pills = {
             "addicted",
@@ -70,14 +68,14 @@ if REPENTOGON and REPENTANCE_PLUS then
     end
 else
     -- Render a warning in the first room that the mod is not active
-    mod:AddCallback(ModCallbacks.MC_POST_HUD_RENDER, function ()
+    mod:AddCallback(ModCallbacks.MC_POST_RENDER, function ()
         local room = mod.Game:GetRoom()
         local level = mod.Game:GetLevel()
         if (
             room:IsFirstVisit()
             and level:GetCurrentRoomIndex() == level:GetStartingRoomIndex()
             and level:GetStage() == LevelStage.STAGE1_1
-            and level:GetDimension() == Dimension.NORMAL
+            and (not REPENTOGON or level:GetDimension() == Dimension.NORMAL)
         ) then
             Isaac.RenderText("You need to be in Repentance+ to use the Repentogon backport!", 50, 50, 1, 1, 1, 1)
         end
