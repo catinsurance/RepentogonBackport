@@ -1,14 +1,38 @@
 local mod = RgonBackport
 local game = mod.Game
 
+--toggle once callback will be pushed for next pre-release
+--[[
+ ---@param dropPos Vector
+---@param player EntityPlayer
+---@param isGolden boolean
+function mod:ToenailDrop(_, dropPos, player, isGolden)
+    local trinketModif = 0
+
+    if isGolden then
+        trinketModif = trinketModif + 1
+    end
+    if player:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_BOX) then
+        trinketModif = trinketModif + 1
+    end
+
+    Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.MOM_FOOT_STOMP, 0, dropPos, Vector.Zero, player)
+    if trinketModif > 0 then
+        for i = 1, trinketModif do
+            Isaac.CreateTimer(function()
+                Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.MOM_FOOT_STOMP, 0, dropPos, Vector.Zero, player)
+            end, i * 15, 1, false)
+        end
+    end
+end ]]
+
 ---@param player EntityPlayer
 ---@param trinketID TrinketType
 function mod:ToenailRemove(player, trinketID)
     if (trinketID & TrinketType.TRINKET_ID_MASK) == TrinketType.TRINKET_MOMS_TOENAIL then
         local plrData = mod:GetData(player)
         plrData.RgonBackPortHasMomsBox = player:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_BOX)
-        plrData.RgonBackPortPlayerWasHoldingDropAction = player:GetLastActionTriggers() &
-            ActionTriggers.ACTIONTRIGGER_ITEMSDROPPED > 0
+        plrData.RgonBackPortPlayerWasHoldingDropAction = player:GetLastActionTriggers() & ActionTriggers.ACTIONTRIGGER_ITEMSDROPPED > 0
     end
 end
 
@@ -36,15 +60,12 @@ function mod:ToenailDrop(pick)
                 end
 
                 if plrData.RgonBackPortPlayerWasHoldingDropAction then
-                    Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.MOM_FOOT_STOMP, 0, pick.Position, Vector.Zero,
-                        pick)
+                    Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.MOM_FOOT_STOMP, 0, pick.Position, Vector.Zero, pick)
                     --for i = 1, trinketModif do
                     if trinketModif > 0 then
                         for i = 1, trinketModif do
                             Isaac.CreateTimer(function()
-                                Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.MOM_FOOT_STOMP, 0, pick.Position,
-                                    Vector.Zero,
-                                    pick)
+                                Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.MOM_FOOT_STOMP, 0, pick.Position, Vector.Zero, pick)
                             end, i * 15, 1, false)
                         end
                     end
@@ -80,6 +101,7 @@ function mod:ToenailVanillaRemove(eff)
     end
 end
 
+--mod:AddCallback(ModCallbacks.MC_POST_PLAYER_DROP_TRINKET, mod.ToenailDrop) ---@diagnostic disable-line:undefined-field
 mod:AddCallback(ModCallbacks.MC_POST_TRIGGER_TRINKET_REMOVED, mod.ToenailRemove)
 mod:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, mod.ToenailDrop, PickupVariant.PICKUP_TRINKET)
 mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, mod.ToenailDetection, PlayerVariant.PLAYER)
