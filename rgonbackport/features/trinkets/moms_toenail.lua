@@ -1,6 +1,8 @@
 local mod = RgonBackport
 local game = mod.Game
 
+--Isaac.ReworkTrinket(TrinketType.TRINKET_MOMS_TOENAIL)
+
 --toggle once callback will be pushed for next pre-release
 --[[
  ---@param dropPos Vector
