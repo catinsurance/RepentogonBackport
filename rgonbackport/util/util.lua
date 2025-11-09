@@ -26,7 +26,7 @@ end)
 ---@param player EntityPlayer
 ---@param useFlags UseFlag
 ---@param isHorse? boolean
-function mod:PerformPillUse(config, pillColor, player, useFlags, isHorse)
+function RgonBackport:PerformPillUse(config, pillColor, player, useFlags, isHorse)
     isHorse = isHorse or pillColor & PillColor.PILL_GIANT_FLAG > 0
 
     local muteAnnouncer = Options.AnnouncerVoiceMode == AnnouncerVoiceMode.OFF
