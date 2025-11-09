@@ -1,5 +1,6 @@
 local loadImmediately = RgonBackport and RgonBackport.LoadDataImmediately
----@class ModReference
+---@class RgonBackport : ModReference
+---@field LoadDataImmediately boolean
 RgonBackport = RegisterMod("Repentogon Backport", 1)
 local mod = RgonBackport
 

@@ -1,10 +1,12 @@
 local mod = RgonBackport
 
 local scheduled = {}
-function mod:Schedule(func, frames)
+---@param func function
+---@param frames integer
+function RgonBackport:Schedule(func, frames)
     scheduled[#scheduled + 1] = {
         Count = mod.Game:GetFrameCount() + frames,
-        Func = func
+        Func = func,
     }
 end
 
@@ -48,10 +50,12 @@ function mod:PerformPillUse(config, pillColor, player, useFlags, isHorse)
     player:AnimatePill(pillColor, "UseItem")
 end
 
-function mod:ToTPS(maxFireDelay)
+---@param maxFireDelay number
+function RgonBackport:ToTPS(maxFireDelay)
     return 30 / (maxFireDelay + 1)
 end
 
-function mod:ToMFD(tearsPerSecond)
+---@param tearsPerSecond number
+function RgonBackport:ToMFD(tearsPerSecond)
     return (30 / tearsPerSecond) - 1
 end

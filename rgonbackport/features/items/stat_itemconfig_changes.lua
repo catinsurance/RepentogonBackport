@@ -1,5 +1,9 @@
 local mod = RgonBackport
 
+---@class ItemConfigChanges
+---@field TagsAdd? ItemConfig
+---@field CacheFlagsAdd? CacheFlag
+
 ---@class ItemStats
 ---@field Tears? number
 ---@field FlatTears? number
@@ -10,7 +14,7 @@ local mod = RgonBackport
 ---@field Damage? number
 ---@field FlatDamage? number
 ---@field ShouldStack boolean? Defaults to true, determines if stat changes should stack or not.
----@field ItemConfigChanges? table Key is item config value to change. TagsAdd adds to tags instead of overwriting them.
+---@field ItemConfigChanges? ItemConfigChanges Key is item config value to change. TagsAdd adds to tags instead of overwriting them.
 
 ---@type table<CollectibleType, ItemStats>
 mod.ItemStatChanges = {
