@@ -19,7 +19,7 @@ function mod:RevealSuperSecretRoom(player)
                 if data then
                     if data.Type == RoomType.ROOM_SUPERSECRET then
                         roomDesc.DisplayFlags = roomDesc.DisplayFlags | RoomDescriptor.DISPLAY_ICON
-                        --Minimap.Refresh()
+                        Minimap.Refresh()
                         break
                     end
                 end

@@ -115,7 +115,7 @@ function mod:SpecialRoomsMinimapReveal(player)
                     local shouldDisplayRoom = player:GetTrinketMultiplier(trinketID) >= 3
                     if shouldDisplayRoom then
                         roomDesc.DisplayFlags = roomDesc.DisplayFlags | RoomDescriptor.DISPLAY_ICON
-                        --Minimap.Refresh()
+                        Minimap.Refresh()
                     end
                 end
             end
