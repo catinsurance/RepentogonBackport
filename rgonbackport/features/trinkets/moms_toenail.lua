@@ -26,4 +26,4 @@ function mod:ToenailDrop(_, dropPos, player, isGolden)
     end
 end
 
-mod:AddCallback(ModCallbacks.MC_POST_PLAYER_DROP_TRINKET, mod.ToenailDrop) ---@diagnostic disable-line:undefined-field
+mod:AddCallback(ModCallbacks.MC_POST_PLAYER_DROP_TRINKET, mod.ToenailDrop, TrinketType.TRINKET_MOMS_TOENAIL)
