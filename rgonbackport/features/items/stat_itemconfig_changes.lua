@@ -30,6 +30,10 @@ mod.ItemStatChanges = {
             TagsAdd = ItemConfig.TAG_TEARS_UP,
         },
     },
+    [CollectibleType.COLLECITBLE_ODD_MUSHROOM_THIN] = {
+        Speed = 0.3,
+        FlatTears = 0.7,
+    },
     [CollectibleType.COLLECTIBLE_REVELATION] = {
         ItemConfigChanges = {
             AddSoulHearts = 0,

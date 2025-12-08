@@ -16,6 +16,7 @@ local scripts = {
     features = {
         items = {
             "blood_rights",
+            "odd_mushroom_thin",
             "plan_c",
             "pageant_boy",
             "stat_itemconfig_changes",
