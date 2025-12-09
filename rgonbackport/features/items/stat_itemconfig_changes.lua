@@ -30,9 +30,14 @@ mod.ItemStatChanges = {
             TagsAdd = ItemConfig.TAG_TEARS_UP,
         },
     },
-    [CollectibleType.COLLECITBLE_ODD_MUSHROOM_THIN] = {
+    [CollectibleType.COLLECTIBLE_ODD_MUSHROOM_THIN] = {
         Speed = 0.3,
         FlatTears = 0.7,
+    },
+    [CollectibleType.COLLECTIBLE_BROKEN_GLASS_CANNON] = {
+        ItemConfigChanges = {
+            TagsAdd = ItemConfig.TAG_NO_EDEN,
+        },
     },
     [CollectibleType.COLLECTIBLE_REVELATION] = {
         ItemConfigChanges = {

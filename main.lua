@@ -19,6 +19,7 @@ local scripts = {
             "odd_mushroom_thin",
             "plan_c",
             "pageant_boy",
+            "item_pool_changes",
             "stat_itemconfig_changes",
         },
         pills = {

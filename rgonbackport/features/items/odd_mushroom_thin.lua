@@ -1,7 +1,7 @@
 local mod = RgonBackport
 
 if Isaac.ReworkCollectible ~= nil then
-    Isaac.ReworkCollectible(CollectibleType.COLLECITBLE_ODD_MUSHROOM_THIN)
+    Isaac.ReworkCollectible(CollectibleType.COLLECTIBLE_ODD_MUSHROOM_THIN)
 end
 
 ---@param player EntityPlayer
