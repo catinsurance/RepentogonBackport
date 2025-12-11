@@ -11,6 +11,7 @@ RgonBackport.ItemConfig = Isaac.GetItemConfig()
 local scripts = {
     util = {
         "savedata",
+        "constants",
         "util",
     },
     features = {
@@ -36,6 +37,7 @@ local scripts = {
         },
         fixes = {
             "dogma_bombs",
+            "swallowed_m80"
         },
         misc = {
 
