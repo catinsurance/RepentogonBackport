@@ -13,6 +13,7 @@ local mod = RgonBackport
 ---@field FireRate? number
 ---@field Damage? number
 ---@field FlatDamage? number
+---@field Speed? number
 ---@field ShouldStack boolean? Defaults to true, determines if stat changes should stack or not.
 ---@field ItemConfigChanges? ItemConfigChanges Key is item config value to change. TagsAdd adds to tags instead of overwriting them.
 
@@ -96,6 +97,8 @@ local function updateItemConfig(config, stats)
             config.CacheFlags = config.CacheFlags | CacheFlag.CACHE_LUCK
         elseif property == "FlatTears" or property == "Tears" then
             config.CacheFlags = config.CacheFlags | CacheFlag.CACHE_FIREDELAY
+        elseif property == "Speed" then
+            config.CacheFlags = config.CacheFlags | CacheFlag.CACHE_SPEED
         end
     end
 end
@@ -142,6 +145,8 @@ function mod:ChangeStats(player, cacheFlag)
                 elseif stat == "FireRate" and cacheFlag == CacheFlag.CACHE_FIREDELAY then
                     local tears = mod:ToTPS(player.MaxFireDelay) + amount
                     player.MaxFireDelay = mod:ToMFD(tears)
+                elseif stat == "Speed" and cacheFlag == CacheFlag.CACHE_SPEED then
+                    player.MoveSpeed = player.MoveSpeed + amount
                 end
 
                 -- Normal tears up is handled in a different callback so that it abides by vanilla limits.
