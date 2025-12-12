@@ -34,6 +34,7 @@ local scripts = {
             "equality",
             "louse",
             "special_rooms_trinkets",
+            "super_ball"
         },
         fixes = {
             "dogma_bombs",
