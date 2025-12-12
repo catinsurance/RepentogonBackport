@@ -25,7 +25,9 @@ local scripts = {
         pills = {
             "addicted",
             "gulp",
+            "im_drowsy_excited",
             "percs",
+            "question_mark",
         },
         trinkets = {
             "moms_toenail",
