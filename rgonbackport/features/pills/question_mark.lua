@@ -1,7 +1,8 @@
 local mod = RgonBackport
 local game = mod.Game
 
-local allowedCurses = {
+-- Mods can feel free to add to this
+mod.QuestionMarkPillCurses = {
     LevelCurse.CURSE_OF_DARKNESS,
     LevelCurse.CURSE_OF_THE_LOST,
     LevelCurse.CURSE_OF_THE_UNKNOWN,
@@ -16,7 +17,7 @@ function mod:HorseQuestionMarkUse(pillEffect, player, useFlags, pillColor)
         local level = game:GetLevel()
         local outcome = WeightedOutcomePicker()
         local curses = level:GetCurses()
-        for _, curse in ipairs(allowedCurses) do
+        for _, curse in ipairs(mod.QuestionMarkPillCurses) do
             if curses & curse == 0 then
                 outcome:AddOutcomeWeight(curse, 1)
             end
